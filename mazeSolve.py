@@ -3,12 +3,20 @@ import time
 
 GPIO.setmode(GPIO.BCM)
 
-GPIO_trig = 5
-GPIO_echo = 6
+#The sensor in the front
+GPIO_trig1 = 5
+GPIO_echo1 = 6
 
-GPIO.setup(GPIO_trig, GPIO.OUT)
-GPIO.setup(GPIO_echo, GPIO.IN)
+GPIO.setup(GPIO_trig1, GPIO.OUT)
+GPIO.setup(GPIO_echo1, GPIO.IN)
 GPIO.setwarnings(False)
+
+#The sensor on the left
+GPIO_trig2 = 19
+GPIO_echo2 = 26
+
+GPIO.setup(GPIO_trig2, GPIO.OUT)
+GPIO.setup(GPIO_echo2, GPIO.IN)
 
 #MOTOR NUMBER 1
 in1 = 12
@@ -21,7 +29,7 @@ GPIO.setup(in2, GPIO.OUT)
 GPIO.setup(en, GPIO.OUT)
 GPIO.output(in1, GPIO.LOW)
 GPIO.output(in2, GPIO.LOW)
-value=100
+value=30
 p = GPIO.PWM(en, 1000)
 p.start(value)
 
@@ -42,18 +50,18 @@ q.start(value)
 
 
 def distance():
-    GPIO.output(GPIO_trig, True)
+    GPIO.output(GPIO_trig1, True)
 
     time.sleep(0.00001)
-    GPIO.output(GPIO_trig, False)
+    GPIO.output(GPIO_trig1, False)
 
     StartTime = time.time()
     StopTime = time.time()
 
-    while GPIO.input(GPIO_echo)==0:
+    while GPIO.input(GPIO_echo1)==0:
         StartTime = time.time()
 
-    while GPIO.input(GPIO_echo)==1:
+    while GPIO.input(GPIO_echo1)==1:
         StopTime = time.time()
 
     TimeE = StopTime - StartTime
@@ -62,12 +70,36 @@ def distance():
 
     return dist
 
+def distance2():
+    GPIO.output(GPIO_trig2, True)
+
+    time.sleep(0.00001)
+    GPIO.output(GPIO_trig2, False)
+
+    StartTime = time.time()
+    StopTime = time.time()
+
+    while GPIO.input(GPIO_echo2)==0:
+        StartTime = time.time()
+
+    while GPIO.input(GPIO_echo2)==1:
+        StopTime = time.time()
+
+    TimeE = StopTime - StartTime
+
+    dist = (TimeE*34300)/2
+
+    return dist
+
+
 if __name__ == '__main__':
     try:
         while True:
             dist = distance()
+            dist2 = distance2()
             print("Measured Distance = "+str(dist)+" cm")
-            if (dist > 20):
+            print("Measured Distance = "+str(dist2)+" cm")
+            if (dist > 15):
                 GPIO.output(in1, False)
                 GPIO.output(in2, True)
                 GPIO.output(in3, True)
@@ -76,9 +108,9 @@ if __name__ == '__main__':
             else:
                 GPIO.output(in1, False)
                 GPIO.output(in2, True)
-                GPIO.output(in3, False)
+                GPIO.output(in3, True)
                 GPIO.output(in4, False)
-                print("Left")
+                print("Straight")
             time.sleep(1)
 
     except KeyboardInterrupt:
