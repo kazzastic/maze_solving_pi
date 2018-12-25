@@ -95,16 +95,22 @@ def distance2():
 if __name__ == '__main__':
     try:
         while True:
-            dist = distance()
-            dist2 = distance2()
-            print("Measured Distance = "+str(dist)+" cm")
-            print("Measured Distance = "+str(dist2)+" cm")
-            if (dist > 15):
+            front = distance()
+            left = distance2()
+            print("Measured Distance = "+str(front)+" cm")
+            print("Measured Distance = "+str(left)+" cm")
+            elif (front < 11 and left > 11):
                 GPIO.output(in1, False)
+                GPIO.output(in2, True)
+                GPIO.output(in3, False)
+                GPIO.output(in4, False)
+                print("Left")
+            elif (front <11 and left < 11):
+                GPIO.output(in1, True)
                 GPIO.output(in2, True)
                 GPIO.output(in3, True)
                 GPIO.output(in4, False)
-                print("Straight")
+                print("Right")
             else:
                 GPIO.output(in1, False)
                 GPIO.output(in2, True)
