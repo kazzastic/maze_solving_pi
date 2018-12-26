@@ -30,6 +30,9 @@ GPIO.setup(en, GPIO.OUT)
 GPIO.output(in1, GPIO.LOW)
 GPIO.output(in2, GPIO.LOW)
 value=30
+'''
+PWN means the speed of the rotation of the wheels/motors of your robot 
+'''
 p = GPIO.PWM(en, 1000)
 p.start(value)
 
@@ -44,11 +47,16 @@ GPIO.setup(em, GPIO.OUT)
 GPIO.output(in3, GPIO.LOW)
 GPIO.output(in4, GPIO.LOW)
 
+'''
+Sets the PWM meaning how fast the tires/ motors are supposed to move 
+'''
 q = GPIO.PWM(em, 1000)
 q.start(value)
 
 
-
+'''
+Distance is being calculated for the Ultrasonic Sensor on the front
+'''
 def distance():
     GPIO.output(GPIO_trig1, True)
 
@@ -69,7 +77,9 @@ def distance():
     dist = (TimeE*34300)/2
 
     return dist
-
+'''
+Distance is being calculated for the Ultrasonic Sensor on the left
+'''
 def distance2():
     GPIO.output(GPIO_trig2, True)
 
@@ -99,6 +109,12 @@ if __name__ == '__main__':
             left = distance2()
             print("Measured Distance = "+str(front)+" cm")
             print("Measured Distance = "+str(left)+" cm")
+            if (front < 25 or left < 25):
+                GPIO.output(in1, False)
+                GPIO.output(in2, True)
+                GPIO.output(in3, False)
+                GPIO.output(in4, False)
+                print("Left")
             elif (front < 11 and left > 11):
                 GPIO.output(in1, False)
                 GPIO.output(in2, True)
@@ -117,7 +133,7 @@ if __name__ == '__main__':
                 GPIO.output(in3, True)
                 GPIO.output(in4, False)
                 print("Straight")
-            time.sleep(1)
+            time.sleep(0.5)
 
     except KeyboardInterrupt:
         print("Measurement stopped by user")
