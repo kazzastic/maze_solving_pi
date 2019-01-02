@@ -29,7 +29,7 @@ GPIO.setup(in2, GPIO.OUT)
 GPIO.setup(en, GPIO.OUT)
 GPIO.output(in1, GPIO.LOW)
 GPIO.output(in2, GPIO.LOW)
-value=30
+value=25
 p = GPIO.PWM(en, 1000)
 p.start(value)
 
@@ -99,25 +99,28 @@ if __name__ == '__main__':
             left = distance2()
             print("Measured Distance = "+str(front)+" cm")
             print("Measured Distance = "+str(left)+" cm")
-            elif (front < 11 and left > 11):
-                GPIO.output(in1, False)
+
+            if(front < 10 and left > 10):
+                GPIO.output(in1, True)  #counter_clockwise
+                GPIO.output(in2, False)
+                GPIO.output(in3, True)
+                GPIO.output(in4, False) #counter_clockwise
+                print("Left")
+                time.sleep(0.6)
+            elif(front <10 and left < 10):
+                GPIO.output(in1, False) #counter_clockwise
                 GPIO.output(in2, True)
                 GPIO.output(in3, False)
-                GPIO.output(in4, False)
-                print("Left")
-            elif (front <11 and left < 11):
-                GPIO.output(in1, True)
-                GPIO.output(in2, True)
-                GPIO.output(in3, True)
-                GPIO.output(in4, False)
+                GPIO.output(in4, True) #counter_clockwise
                 print("Right")
+                time.sleep(0.6)
             else:
-                GPIO.output(in1, False)
+                GPIO.output(in1, False) #counter_clockwise
                 GPIO.output(in2, True)
                 GPIO.output(in3, True)
-                GPIO.output(in4, False)
+                GPIO.output(in4, False) #counter_clockwise
                 print("Straight")
-            time.sleep(1)
+            #time.sleep(1)
 
     except KeyboardInterrupt:
         print("Measurement stopped by user")
