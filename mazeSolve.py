@@ -29,14 +29,11 @@ GPIO.setup(in2, GPIO.OUT)
 GPIO.setup(en, GPIO.OUT)
 GPIO.output(in1, GPIO.LOW)
 GPIO.output(in2, GPIO.LOW)
-<<<<<<< HEAD
+
 value=25
-=======
-value=30
 '''
 PWN means the speed of the rotation of the wheels/motors of your robot 
 '''
->>>>>>> 3311dc58c90c36602d375d33170e436c8381dc68
 p = GPIO.PWM(en, 1000)
 p.start(value)
 
@@ -113,26 +110,12 @@ if __name__ == '__main__':
             left = distance2()
             print("Measured Distance = "+str(front)+" cm")
             print("Measured Distance = "+str(left)+" cm")
-<<<<<<< HEAD
 
             if(front < 10 and left > 10):
                 GPIO.output(in1, True)  #counter_clockwise
                 GPIO.output(in2, False)
                 GPIO.output(in3, True)
                 GPIO.output(in4, False) #counter_clockwise
-=======
-            if (front < 25 or left < 25):
-                GPIO.output(in1, False)
-                GPIO.output(in2, True)
-                GPIO.output(in3, False)
-                GPIO.output(in4, False)
-                print("Left")
-            elif (front < 11 and left > 11):
-                GPIO.output(in1, False)
-                GPIO.output(in2, True)
-                GPIO.output(in3, False)
-                GPIO.output(in4, False)
->>>>>>> 3311dc58c90c36602d375d33170e436c8381dc68
                 print("Left")
                 time.sleep(0.6)
             elif(front <10 and left < 10):
@@ -148,11 +131,7 @@ if __name__ == '__main__':
                 GPIO.output(in3, True)
                 GPIO.output(in4, False) #counter_clockwise
                 print("Straight")
-<<<<<<< HEAD
             #time.sleep(1)
-=======
-            time.sleep(0.5)
->>>>>>> 3311dc58c90c36602d375d33170e436c8381dc68
 
     except KeyboardInterrupt:
         print("Measurement stopped by user")
