@@ -19,8 +19,8 @@ GPIO.setup(GPIO_trig2, GPIO.OUT)
 GPIO.setup(GPIO_echo2, GPIO.IN)
 
 #The sensor on the right
-GPIO_trig3 =
-GPIO_echo3 =
+GPIO_trig3 = 27
+GPIO_echo3 =22
 
 GPIO.setup(GPIO_trig3, GPIO.OUT)
 GPIO.setup(GPIO_echo3, GPIO.IN)
