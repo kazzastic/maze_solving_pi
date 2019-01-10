@@ -1,6 +1,6 @@
 def recursion_fact(num):
-    if num == 1:
-       return num
+    if num <= 1:
+       return 1
     else:
        return num*recursion_fact(num-1)
 num = int(input("The number please: "))
