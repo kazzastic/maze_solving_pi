@@ -37,7 +37,7 @@ GPIO.setup(en, GPIO.OUT)
 GPIO.output(in1, GPIO.LOW)
 GPIO.output(in2, GPIO.LOW)
 
-value=25
+value=40
 '''
 PWN means the speed of the rotation of the wheels/motors of your robot 
 '''
@@ -135,48 +135,28 @@ def distance3():
 if __name__ == '__main__':
     try:
         while True:
-            front = distance()
+            front = distance3()
             left = distance2()
-            right = distance3()
+            right = distance()
             print("Measured Distance = "+str(front)+" cm")
             print("Measured Distance = "+str(left)+" cm")
             print("Measured Distance = "+str(right)+" cm")
-'''
-            if(front < 10 and left > 10):
-                GPIO.output(in1, True)  #counter_clockwise
-                GPIO.output(in2, False)
-                GPIO.output(in3, True)
-                GPIO.output(in4, False) #counter_clockwise
-                print("Left")
-                time.sleep(0.6)
-            elif(front <10 and left < 10):
-                GPIO.output(in1, False) #counter_clockwise
-                GPIO.output(in2, True)
-                GPIO.output(in3, False)
-                GPIO.output(in4, True) #counter_clockwise
-                print("Right")
-                time.sleep(0.6)
-            else:
-                GPIO.output(in1, False) #counter_clockwise
-                GPIO.output(in2, True)
-                GPIO.output(in3, True)
-                GPIO.output(in4, False) #counter_clockwise
-                print("Straight")
-            #time.sleep(1)
-'''
-            if(front >10 and left > 10 and right > 10):
-                GPIO.output(in1, False) #counter_clockwise
-                GPIO.output(in2, True)
-                GPIO.output(in3, True)
-                GPIO.output(in4, False) #counter_clockwise
-                print("Straight")
-            elif(front < 10 and left >10 and right >10):
-                 GPIO.output(in1, False) #counter_clockwise
-                GPIO.output(in2, True)
-                GPIO.output(in3, False)
-                GPIO.output(in4, True) #counter_clockwise
-                print("Right")
-                time.sleep(0.6)
+            
+            if(front < 10 and left >10 and right >10):
+                if(right > left):
+                    GPIO.output(in1, False) #counter_clockwise
+                    GPIO.output(in2, True)
+                    GPIO.output(in3, False)
+                    GPIO.output(in4, True) #counter_clockwise
+                    print("Right")
+                    time.sleep(0.6)
+                else:
+                    GPIO.output(in1, True)  #counter_clockwise
+                    GPIO.output(in2, False)
+                    GPIO.output(in3, True)
+                    GPIO.output(in4, False) #counter_clockwise
+                    print("Left")
+                    time.sleep(0.6)
             elif(front < 10 and left < 10 and right > 10):
                 GPIO.output(in1, False) #counter_clockwise
                 GPIO.output(in2, True)

@@ -15,7 +15,7 @@ GPIO.setup(en, GPIO.OUT)
 GPIO.output(in1, GPIO.LOW)
 GPIO.output(in2, GPIO.LOW)
 
-value=25
+value=50
 '''
 PWN means the speed of the rotation of the wheels/motors of your robot 
 '''
